@@ -1,0 +1,38 @@
+{% load static %}
+<html>
+<title>Django Tutorials </title>
+<link rel="stylesheet" href="{% static 'styles.css' %}" />
+<script src="{% static 'slugify.js' %}"></script>
+<body>
+<header class="wrapper">
+    <h1><a href="/"><img src="{% static 'logo.png' %}" width="150"/></a></h1>
+    <nav>
+        <ul>
+        {% if user.is_authenticated %}
+            <li>
+            <form class="logout-link" action="/accounts/logout/" method="post">
+                {% csrf_token %}
+                <input type="submit" value="logout">
+            </form>
+         </li>
+         <li><a href="/articles/create" class="highlight">New Article</a></li>
+         {% else %}
+         <li>
+         <a href="/accounts/login">Login</a>
+         </li>
+          <li>
+         <a href="/accounts/signup">  SignUp  </a>
+         </li>
+        {% endif %}       
+         
+        </ul>
+    </nav>
+</header>
+<div class="wrapper">
+    {% block content %}
+    
+    {% endblock %}
+</div>
+</body>
+
+</html>
